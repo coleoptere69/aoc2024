@@ -1,14 +1,31 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"math"
+	"os"
 	"slices"
 )
 
 func main() {
-	left := []int{3, 4, 2, 1, 3, 3}
-	right := []int{4, 3, 5, 3, 9, 3}
+	file, err := os.Open("input1.txt")
+	if err != nil {
+		panic(err)
+	}
+	scanner := bufio.NewScanner(file)
+	left := []int{}
+	right := []int{}
+	for scanner.Scan() {
+		leftNum, rightNum := 0, 0
+		_, err = fmt.Sscanf(scanner.Text(), "%d   %d", &leftNum, &rightNum)
+		if err != nil {
+			panic(err)
+		}
+		left = append(left, leftNum)
+		right = append(right, rightNum)
+	}
+
 	slices.Sort(left)
 	slices.Sort(right)
 	sum := 0
